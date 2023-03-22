@@ -1,4 +1,4 @@
-package com.generation.repository.lojagames;
+package com.generation.lojagames.repository;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ import com.generation.lojagames.model.Produto;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
-	public List<Produto> findAllByNomeContainingIgnoreCase(@Param("nome")String nome);
+	public List<Produto> findAllByNomeContainingIgnoreCase(@Param("nome") String nome);
 
 }

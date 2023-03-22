@@ -8,45 +8,43 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.generation.lojagames.model.Produto;
 
 @Entity
-@Table(name = "tb_produto")
+@Table(name = "tb_produtos")
 public class Produto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank
-    @Size(min = 5, max = 50, message = "O atributo nome é obrigatório")
-    private String nome;
-	
+
+	@NotBlank(message = "O atributo nome é Obrigatório!")
+	@Size(min = 5, max = 100, message = "O atributo nome deve conter no mínimo 05 e no máximo 100 caracteres")
+	private String nome;
+
 	@NotNull
-	@DecimalMax(value = "0.0", message = "O atributo valor é obrigatório")
-	@DecimalMax(value = "00000.00", message = "O atributo valor é obrigatório")
+	//@DecimalMin(value = "0.00", message = "O atributo valor deve conter no mínimo 0.00 e no máximo 00000.00 digitos")
+	//@DecimalMax(value = "00000.00")
 	private BigDecimal valor;
-	
-	@NotBlank
-    @Size(min = 5, max = 50, message = "O atributo descrição é obrigatório")
+
+	@NotBlank(message = "O atributo descrição é obrigatório!")
+	@Size(min = 10, max = 1000, message = "O atributo descrição deve conter no mínimo 10 e no máximo 1000 caracteres")
 	private String descricao;
-	
+
 	@NotBlank
-    @Size(min = 5, max = 50, message = "O atributo marca é obrigatório")
+	@Size(min = 5, max = 100, message = "O atributo marca deve conter no mínimo 05 e no máximo 100 caracteres")
 	private String marca;
-	
+
 	@NotBlank
 	private String foto;
-	
-	 @ManyToOne
-	    @JsonIgnoreProperties("produto")
-	    private Produto categoria;
+
+	@ManyToOne
+	@JsonIgnoreProperties("produtos")
+	private Categoria categoria;
 
 	public Long getId() {
 		return id;
@@ -96,12 +94,12 @@ public class Produto {
 		this.foto = foto;
 	}
 
-	public Produto getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(Produto categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
+
 }

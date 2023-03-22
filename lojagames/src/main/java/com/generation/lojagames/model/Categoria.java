@@ -1,28 +1,34 @@
 package com.generation.lojagames.model;
 
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_categoria")
 public class Categoria {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @NotBlank
-    @Size(min = 5, max = 50, message = "O atributo nome é obrigatório")
-    private String nome;
+	@NotBlank(message = "O atributo nome é Obrigatório!")
+	@Size(min = 1, max = 100, message = "O atributo nome deve conter no mínimo 01 e no máximo 100 caracteres")
+	private String nome;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("categoria")
-    private List<Produto> produtos;
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("categorias")
+	private List<Produto> produtos;
 
 	public Long getId() {
 		return id;
@@ -47,4 +53,5 @@ public class Categoria {
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
+
 }
